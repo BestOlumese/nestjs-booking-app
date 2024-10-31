@@ -23,7 +23,7 @@ export class AuthService {
           name: createAuthDto.name,
           email: createAuthDto.email,
           password: hash,
-          role: 'USER',
+          roles: 'USER',
         },
       });
 
@@ -54,7 +54,7 @@ export class AuthService {
   }
 
   async login(user: any) {
-    const payload = { email: user.email, sub: user.id };
+    const payload = { email: user.email, sub: user.id, roles: user.roles };
     return {
       access_token: this.jwtService.sign(payload),
       exp: 60 * 60 * 24,
