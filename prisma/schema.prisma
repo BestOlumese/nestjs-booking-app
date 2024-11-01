@@ -14,17 +14,44 @@ datasource db {
 }
 
 model User {
-  id    Int     @default(autoincrement()) @id
-  email String  @unique
-  name  String
+  id       Int     @id @default(autoincrement())
+  email    String  @unique
+  name     String
   password String
-  roles Roles
-  image String?
+  roles    Roles
+  image    String?
 
-  createdAt DateTime @default(now())
+  createdAt DateTime  @default(now())
+  Booking   Booking[]
 }
 
 enum Roles {
   ADMIN
   USER
+}
+
+model Space {
+  id            Int       @id @default(autoincrement())
+  title         String
+  description   String
+  price         Float
+  capacity      Int
+  address       String
+  availableTime String
+  isAvailable   Boolean   @default(true)
+  createdAt     DateTime  @default(now())
+  Booking       Booking[]
+}
+
+model Booking {
+  id         Int      @id @default(autoincrement())
+  spaceId    Int 
+  userId     Int 
+  startTime  DateTime
+  endTime    DateTime
+  totalPrice Float 
+  createdAt  DateTime @default(now())
+
+  space Space @relation(fields: [spaceId], references: [id])
+  user  User  @relation(fields: [userId], references: [id])
 }

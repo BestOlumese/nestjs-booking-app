@@ -1,6 +1,6 @@
-import { IsNotEmpty, IsNumber, IsString } from 'class-validator';
+import { IsBoolean, IsNotEmpty, IsNumber, IsString } from 'class-validator';
 
-export class CreateSpaceDto {
+export class UpdateSpaceDto {
   @IsString()
   @IsNotEmpty()
   title: string;
@@ -24,4 +24,7 @@ export class CreateSpaceDto {
   @IsString()
   @IsNotEmpty()
   availableTime: string;
+
+  @IsBoolean()
+  isAvailable: boolean;
 }
